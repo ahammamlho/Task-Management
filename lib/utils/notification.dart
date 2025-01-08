@@ -64,7 +64,6 @@ class NotificationService {
           priority: Priority.high,
         ),
         iOS: DarwinNotificationDetails());
-
     await localNotificationsPlugin.zonedSchedule(
       id,
       title,

@@ -65,13 +65,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         );
 
         final userId = await TaskDatabase.instance.insertUser(user);
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('idUser', userId);
-        await TaskDatabase.instance.insertDefaultTasks(userId);
-        await NotificationService.scheduleNotificationByUser(idUser: userId);
+        // final SharedPreferences prefs = await SharedPreferences.getInstance();
+        // await prefs.setString('idUser', userId);
+        // await TaskDatabase.instance.insertDefaultTasks(userId);
+        // await NotificationService.scheduleNotificationByUser(idUser: userId);
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
         );
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(

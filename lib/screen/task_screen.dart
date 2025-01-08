@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:management/dto/notification_dto.dart';
 import 'package:management/screen/notif_screen.dart';
 import 'package:management/screen/task_detail_screen.dart';
 import 'package:management/sql/sql_database.dart';
@@ -22,6 +23,7 @@ class _TaskScreenState extends State<TaskScreen> {
   List<Task> tasks = [];
   TaskCategory? selectedCategoryFilter;
   TaskStatus? selectedStatusFilter;
+  bool isNotiNotRead = false;
   @override
   void initState() {
     super.initState();
@@ -32,10 +34,24 @@ class _TaskScreenState extends State<TaskScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String idUser = prefs.getString('idUser') ?? '';
     allTasks = await TaskDatabase.instance.getAllTasks(idUser);
+    await loadNotifications(idUser);
     filteredTasks = allTasks;
     setState(() {
       tasks = allTasks;
     });
+  }
+
+  Future<void> loadNotifications(String idUser) async {
+    final notifications =
+        await TaskDatabase.instance.getAllNotifications(idUser);
+    for (NotificationDto noti in notifications) {
+      if (noti.isRead == 0 && noti.launchDate.isBefore(DateTime.now())) {
+        setState(() {
+          isNotiNotRead = true;
+        });
+        return;
+      }
+    }
   }
 
   void filterTasks() {
@@ -91,17 +107,39 @@ class _TaskScreenState extends State<TaskScreen> {
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      IconButton(
-                          onPressed: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const NotificationsScreen()),
-                            );
-                          },
-                          icon: const Icon(Icons.notifications_outlined,
-                              color: Colors.black))
+                      GestureDetector(
+                        onTap: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const NotificationsScreen()),
+                          );
+                          setState(() {
+                            isNotiNotRead = false;
+                          });
+                          await loadTasks();
+                        },
+                        child: Stack(
+                          children: [
+                            const Icon(Icons.notifications_outlined,
+                                color: Colors.black),
+                            if (isNotiNotRead)
+                              Positioned(
+                                right: 0,
+                                top: 0,
+                                child: Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.red,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                   const Text(

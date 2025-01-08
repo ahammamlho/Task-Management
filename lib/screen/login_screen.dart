@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  bool isAccepted = false;
   List<User> users = [];
 
   @override
@@ -54,6 +54,10 @@ class _LoginScreenState extends State<LoginScreen> {
     await loadUsers();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String idUser = prefs.getString('idUser') ?? '';
+    final bool isFirstTime = prefs.getBool('isFirstTime') ?? true;
+    setState(() {
+      if (!isFirstTime) isAccepted = true;
+    });
     if (idUser != '' && checkUserIsExist(idUser)) {
       Navigator.pushReplacement(
         context,
@@ -64,6 +68,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _signIn() async {
     if (_formKey.currentState!.validate()) {
+      if (!isAccepted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please accept Terms and Conditions'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
       setState(() => _isLoading = true);
 
       String email = _emailController.text.trim();
@@ -80,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('idUser', user.id);
+        await prefs.setBool('isFirstTime', false);
         await TaskDatabase.instance.insertDefaultTasks(user.id);
         Navigator.pushReplacement(
           context,
@@ -147,6 +162,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     obscureText: !_isPasswordVisible,
                     validator: (value) =>
                         value!.isEmpty ? 'Please enter password' : null,
+                  ),
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: isAccepted,
+                        onChanged: (value) {
+                          setState(() {
+                            isAccepted = value!;
+                          });
+                        },
+                      ),
+                      const Text('I accept the '),
+                      const Text(
+                        'Terms and Conditions',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 24),
                   ElevatedButton(

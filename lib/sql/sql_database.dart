@@ -140,8 +140,7 @@ class TaskDatabase {
           notificationId: DateTime.now().millisecondsSinceEpoch % 2147483647,
           body:
               'Task ${dummyTasks[0].title} is close to its estimated completion time',
-          // launchDate: dummyTasks[0].endDate,
-          launchDate: DateTime.now().add(const Duration(seconds: 30)),
+          launchDate: dummyTasks[0].endDate,
           isRead: 0,
         ),
         NotificationDto(
@@ -149,8 +148,7 @@ class TaskDatabase {
           notificationId: DateTime.now().millisecondsSinceEpoch % 2147483647,
           body:
               'Task ${dummyTasks[1].title} is close to its estimated completion time',
-          // launchDate: dummyTasks[2].endDate,
-          launchDate: DateTime.now().add(const Duration(seconds: 35)),
+          launchDate: dummyTasks[1].endDate,
           isRead: 0,
         ),
       ];

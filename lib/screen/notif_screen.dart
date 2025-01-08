@@ -88,9 +88,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                           margin: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
-                            color: notification.isRead == 1
-                                ? Colors.white
-                                : Colors.blue.withOpacity(0.1),
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
