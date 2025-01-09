@@ -3,7 +3,7 @@ import 'package:management/dto/notification_dto.dart';
 import 'package:management/dto/task_dto.dart';
 import 'package:management/sql/sql_database.dart';
 import 'package:management/utils/notification.dart';
-import 'package:management/utils/task_convert.dart';
+import 'package:management/utils/task_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddTaskDialog extends StatefulWidget {

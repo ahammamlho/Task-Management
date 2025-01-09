@@ -1,7 +1,7 @@
 import 'package:management/dto/notification_dto.dart';
 import 'package:management/dto/task_dto.dart';
 import 'package:management/dto/user_dto.dart';
-import 'package:management/utils/bcrypt.dart';
+import 'package:management/utils/password_hash.dart';
 
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';

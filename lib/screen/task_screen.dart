@@ -4,7 +4,7 @@ import 'package:management/screen/notif_screen.dart';
 import 'package:management/screen/task_detail_screen.dart';
 import 'package:management/sql/sql_database.dart';
 import 'package:management/dto/task_dto.dart';
-import 'package:management/utils/task_convert.dart';
+import 'package:management/utils/task_service.dart';
 import 'package:management/widget/add_task.dart';
 import 'package:management/widget/task_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';

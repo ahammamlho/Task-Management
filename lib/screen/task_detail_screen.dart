@@ -6,7 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:management/dto/task_dto.dart';
 import 'package:management/sql/sql_database.dart';
-import 'package:management/utils/task_convert.dart';
+import 'package:management/utils/task_service.dart';
 
 class TaskDetailScreen extends StatefulWidget {
   final Task task;

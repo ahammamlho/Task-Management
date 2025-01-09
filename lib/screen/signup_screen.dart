@@ -3,7 +3,7 @@ import 'package:management/dto/user_dto.dart';
 import 'package:management/screen/home_screen.dart';
 import 'package:management/screen/login_screen.dart';
 import 'package:management/sql/sql_database.dart';
-import 'package:management/utils/bcrypt.dart';
+import 'package:management/utils/password_hash.dart';
 import 'package:management/utils/notification.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

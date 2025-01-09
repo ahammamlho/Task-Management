@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:management/dto/task_dto.dart';
-import 'package:management/utils/task_convert.dart';
+import 'package:management/utils/task_service.dart';
 
 class TaskCard extends StatelessWidget {
   final Task task;

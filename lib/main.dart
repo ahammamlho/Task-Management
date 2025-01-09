@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:management/sql/sql_database.dart';
 import 'package:management/screen/login_screen.dart';
-import 'package:management/utils/app_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:management/utils/notification.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -32,16 +30,6 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      supportedLocales: const [
-        Locale('en'),
-        Locale('fr'),
-      ],
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
       home: const LoginScreen(),
     );
   }
